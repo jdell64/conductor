@@ -53,7 +53,7 @@ The ID field will be serve as the ticket number.
 
 *status* - string, enum - an extensible list of statuses that a ticket can have. Tickets can only have one status. Default statuses are: open, pending, closed.
 
-*ticket_type* - string, enum - ITIL ticket types. Defaults "Incident, Problem, Change"
+*ticketType* - string, enum - ITIL ticket types. Defaults "Incident, Problem, Change"
 
 *urgency* - string, enum - ITIL Urgency. How urgent is this issue? Defaults "High, Mid, Low"
 
@@ -96,11 +96,17 @@ A text value of a change to the ticket. This is meant to track down who made cha
 
 ####members
 
-*value* - string - the change that was made to the ticket. eg.
-
-    {'value': "*username* changed *field* in ticket *ticket number* "}
+*username* - user.name - the user that made this change.
+*field* - string - the attribute of the ticket that was changed.
+*ticketNumber* - string - the ticket that was changed.
+*oldValue* - string - the old value of the field.
+*newValue* - string - the new value of the field.
 
 ####methods
+
+*toString()* - returns a string formated thusly:
+
+    "**username** changed **field** in ticket **ticketNumber** from **oldValue** to **newValue**"
 
 ####relations
 
@@ -115,9 +121,17 @@ A text value of a change to the ticket. This is meant to track down who made cha
 
 *password*
 
+*email*
+*phone*
+
 ####methods
+
 ####relations
-*openedTickets* - tickets
+*openedTickets* - [ticket] - tickets that were opened by this user.
+
+*reportedTickets* - [ticket] - tickets that this user was the "customer" for.
+
+*ticketActivity* - [ticketChange] - all ticket changes this user was responsible for.
 
 ###userGroup###
 

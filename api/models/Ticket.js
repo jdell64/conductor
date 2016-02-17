@@ -20,7 +20,7 @@ module.exports = {
       type: 'string'
       // *status* - string, enum - an extensible list of statuses that a ticket can have. Tickets can only have one status. Default statuses are: open, pending, closed.
     },
-    ticket_type: {
+    ticketType: {
       type: 'string'
       // *type* - string, enum - ITIL ticket types. Defaults "Incident, Problem, Change"
     },
