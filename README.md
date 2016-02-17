@@ -10,7 +10,33 @@ This application should run fine out of the box, however, you may want to make a
 
 ####some_config_file_path
 
-ticket_prefix - a string value to prefix to the beginning of your tickets. Defaults to 'COND' which produces tickets that look like 'COND1', 'COND2', etc.
+**Ticket Prefix**
+
+    ticket_prefix: 'COND'
+
+A string value to prefix to the beginning of your tickets. Defaults to 'COND' which produces tickets that look like 'COND1', 'COND2', etc.
+
+**Ticket Levels**
+
+    urgency:on
+    impact:on
+    priority:off
+
+This determines what levels you want applied to your ticket. ITIL uses urgency and impact. You may (in addition or alternatively), use priority.
+
+**Ticket Level Lists**
+
+    urgency_list:['High', 'Mid', 'Low']
+    impact_list:['High', 'Mid', 'Low']
+    priority_list:['Critical', 'High', 'Medium', 'Low']
+
+The levels that are available for a ticket to be classified at. Changing these will not migrate old tickets to a new classification.  
+
+**Auth**
+
+    auth:'local'
+
+Where is the auth service? Out of the box, local is supported.
 
 ##models
 
@@ -27,8 +53,13 @@ The ID field will be serve as the ticket number.
 
 *status* - string, enum - an extensible list of statuses that a ticket can have. Tickets can only have one status. Default statuses are: open, pending, closed.
 
-*type* - string, enum - ITIL ticket types. Defaults "Incident, Problem, Change"
+*ticket_type* - string, enum - ITIL ticket types. Defaults "Incident, Problem, Change"
 
+*urgency* - string, enum - ITIL Urgency. How urgent is this issue? Defaults "High, Mid, Low"
+
+*impact* - string, enum - ITIL impact. How many are affected by this? Defaults "High, Mid, Low"
+
+*priority* - string, enum - Only available if added in config file. Defaults "Critical, High, Medium, Low". Off by default.
 
 ####methods
 *createProblemParent(ticket)* - creates a new ticket with the default values from the ticket input. The customer is changed to the technician opening the ticket, and the existing ticket is related as a child of the new ticket.
@@ -37,7 +68,9 @@ The ID field will be serve as the ticket number.
 
 *childrenCustomers()* - returns a list of customer objects of all tickets that are children of this one.
 
-*relatives()* -
+*relatives()* - returns an object of all relatives. eg:
+
+    {'parent': {}, 'children': {}, 'siblings':{} }
 
 ...
 ####relations
@@ -59,11 +92,13 @@ A ticket can have 1 parent and multiple children and siblings.
 
 ###ticketChange
 
-A text value of a change to the ticket. This is meant to track down who made changes to a ticket. By default, not viewable by a customer.
+A text value of a change to the ticket. This is meant to track down who made changes to a ticket. By default, not viewable by a customer. These cannot be deleted.
 
 ####members
 
-*value* - string - the change that was made to the ticket. eg. "*username* changed *field* in ticket *ticket number* "
+*value* - string - the change that was made to the ticket. eg.
+
+    {'value': "*username* changed *field* in ticket *ticket number* "}
 
 ####methods
 
@@ -71,12 +106,14 @@ A text value of a change to the ticket. This is meant to track down who made cha
 
 *ticket* - ticket - the ticket this ticket change belongs to.
 
-
-
 ###user
 
 ####members
 *role* - list?/string, enum - an extensible list of roles a user can have. Users can have multiple roles. Default roles are: conductor, admin, technician, auditor, customer.
+
+*username*
+
+*password*
 
 ####methods
 ####relations
