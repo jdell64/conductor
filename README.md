@@ -96,7 +96,7 @@ A text value of a change to the ticket. This is meant to track down who made cha
 
 ####members
 
-*username* - user.name - the user that made this change.
+*changer* - username - the user that made this change.
 *field* - string - the attribute of the ticket that was changed.
 *ticketNumber* - string - the ticket that was changed.
 *oldValue* - string - the old value of the field.
@@ -106,7 +106,7 @@ A text value of a change to the ticket. This is meant to track down who made cha
 
 *toString()* - returns a string formated thusly:
 
-    "**username** changed **field** in ticket **ticketNumber** from **oldValue** to **newValue**"
+    "**changer** changed **field** in ticket **ticketNumber** from **oldValue** to **newValue**"
 
 ####relations
 
@@ -121,8 +121,12 @@ A text value of a change to the ticket. This is meant to track down who made cha
 
 *password*
 
+*apikey*
+
 *email*
+
 *phone*
+
 
 ####methods
 
